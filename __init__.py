@@ -24,10 +24,11 @@ class TeaSkill(MycroftSkill):
 
 
     @intent_handler(IntentBuilder('TeaIntent').require("TeaKeyword"))
-    @adds_context('MilkContext')
+    # @adds_context('MilkContext')
     def handle_tea_intent(self, message):
         self.milk = False
         self.speak('Of course, would you like Milk with that?', expect_response=True)
+        self.set_context('MilkContext')
 
 
     @intent_handler(IntentBuilder('NoMilkIntent').require("NoKeyword").require('MilkContext').build())
