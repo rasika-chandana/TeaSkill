@@ -32,11 +32,13 @@ class TeaSkill(MycroftSkill):
 
 
     @intent_handler(IntentBuilder('NoMilkIntent').require("NoKeyword").require('MilkContext').build())
-    @removes_context('MilkContext')
-    @adds_context('HoneyContext')
+    # @removes_context('MilkContext')
+    # @adds_context('HoneyContext')
     def handle_yes_milk_intent(self, message):
         self.milk = True
         self.speak('all right, any Honey?', expect_response=True)
+        self.remove_context('MilkContext')
+        self.set_context('HoneyContext')
 
     @intent_handler(IntentBuilder('YesMilkIntent').require("YesKeyword").require('MilkContext').build())
     def handle_no_milk_intent(self, message):
