@@ -38,6 +38,8 @@ class TeaSkill(MycroftSkill):
         self.speak('all right, any Honey?', expect_response=True)
 
     @intent_handler(IntentBuilder('YesMilkIntent').require("YesKeyword").require('MilkContext').build())
+    # @adds_context('MilkContext')
+    @adds_context('HoneyContext')
     def handle_no_milk_intent(self, message):
         self.speak('What about Honey?', expect_response=True)
 
@@ -58,6 +60,8 @@ class TeaSkill(MycroftSkill):
         else:
             self.speak('Heres your Tea with Milk and Honey')
 
+    def stop(self):
+       return False
 
 # The "create_skill()" method is used to create an instance of the skill.
 # Note that it's outside the class itself.
