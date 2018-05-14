@@ -47,7 +47,7 @@ class TeaSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder('UnhandledTeaIntent').require('MilkContext').optionally("UnhandledPhrase").build())
     def handle_tea_unhandled_intent(self, message):
-        self.speak('Oops, I didn\'t get that', expect_response=True)
+        self.speak('MilkContext, Oops, I didn\'t get that', expect_response=True)
 
     @intent_handler(IntentBuilder('NoHoneyIntent').require("NoKeyword").require('HoneyContext').build())
     @removes_context('HoneyContext')
@@ -67,7 +67,7 @@ class TeaSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder('UnhandledTeaIntent').require('HoneyContext').optionally("UnhandledPhrase").build())
     def handle_honey_unhandled_intent(self, message):
-        self.speak('Oops, I didn\'t get that', expect_response=True)
+        self.speak('HoneyContext, Oops, I didn\'t get that', expect_response=True)
 
 
     # def handle_fallback_persona(self, message):
