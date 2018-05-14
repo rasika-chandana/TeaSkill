@@ -22,8 +22,8 @@ class TeaSkill(MycroftSkill):
     def __init__(self):
         super(TeaSkill, self).__init__(name="TeaSkill")
 
-    def initialize(self):
-        self.register_fallback(self.handle_fallback_persona, 8)
+    # def initialize(self):
+    #     self.register_fallback(self.handle_fallback_persona, 8)
 
     @intent_handler(IntentBuilder('TeaIntent').require("TeaKeyword"))
     @adds_context('MilkContext')
@@ -69,11 +69,11 @@ class TeaSkill(MycroftSkill):
         self.speak('Oops, I didn\'t get that', expect_response=True)
 
 
-    def handle_fallback_persona(self, message):
-        query = message.data['utterance']
-        print ">>>>>>>>>>> fallback data" + query
-        self.speak('I am sorry I didn\'t understand', expect_response=True)
-        return True
+    # def handle_fallback_persona(self, message):
+    #     query = message.data['utterance']
+    #     print ">>>>>>>>>>> fallback data" + query
+    #     self.speak('I am sorry I didn\'t understand', expect_response=True)
+    #     return True
 
     def stop(self):
         pass
