@@ -29,7 +29,6 @@ class TeaSkill(MycroftSkill):
         self.milk = False
         self.speak('Of course, would you like Milk with that?', expect_response=True)
 
-
     @intent_handler(IntentBuilder('NoMilkIntent').require("NoKeyword").require('MilkContext').build())
     @removes_context('MilkContext')
     @adds_context('HoneyContext')
@@ -43,6 +42,10 @@ class TeaSkill(MycroftSkill):
     def handle_no_milk_intent(self, message):
         self.speak('What about Honey?', expect_response=True)
 
+    @intent_handler(IntentBuilder('UnhandledTeaIntent').require('MilkContext').optionally("Unhandled").build())
+    def handle_tea_unhandled_intent(self, message):
+        self.speak('Oops, I didn\'t get that', expect_response=True)
+
     @intent_handler(IntentBuilder('NoHoneyIntent').require("NoKeyword").require('HoneyContext').build())
     @removes_context('HoneyContext')
     def handle_no_honey_intent(self, message):
@@ -51,7 +54,6 @@ class TeaSkill(MycroftSkill):
         else:
             self.speak('Heres your Tea with a dash of Milk')
 
-
     @intent_handler(IntentBuilder('YesHoneyIntent').require("YesKeyword").require('HoneyContext').build())
     @removes_context('HoneyContext')
     def handle_yes_honey_intent(self, message):
@@ -59,6 +61,10 @@ class TeaSkill(MycroftSkill):
             self.speak('Heres your Tea with Honey')
         else:
             self.speak('Heres your Tea with Milk and Honey')
+
+    @intent_handler(IntentBuilder('UnhandledTeaIntent').require('HoneyContext').optionally("Unhandled").build())
+    def handle_honey_unhandled_intent(self, message):
+        self.speak('Oops, I didn\'t get that', expect_response=True)
 
     def stop(self):
         pass
