@@ -61,7 +61,8 @@ class AssistMcSkill(MycroftSkill):
 	# 	self.speak_dialog('order.food.preference.more', expect_response=True)
 
 	@intent_handler(IntentBuilder('CheckoutIntent').require("Checkout").require('MenuContextMore').build())
-	# @removes_context('MenuContextMore')
+	@removes_context('MenuContext')
+	@removes_context('MenuContextMore')
 	@adds_context('CheckoutContext')
 	def handle_checkout_order_item_intent(self, message):
 		self.speak_dialog('which.payment.method.to.use', expect_response=True)
