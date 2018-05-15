@@ -29,8 +29,8 @@ class AssistMcSkill(MycroftSkill):
 		print '--- initialize AssistMcSkill ---'
 		# self.schedule_repeating_event(self.on_poll, None, 1.0)
 
-	def on_poll(self):
-		print '-- poll at {} --'.format(time.time())
+	# def on_poll(self):
+	# 	print '-- poll at {} --'.format(time.time())
 
 	# The "handle_xxxx_intent" function is triggered by Mycroft when the
 	# skill's intent is matched.  The intent is defined by the IntentBuilder()
@@ -43,31 +43,31 @@ class AssistMcSkill(MycroftSkill):
 	#   'Hello world'
 	#   'Howdy you great big world'
 	#   'Greetings planet earth'
-	@intent_handler(IntentBuilder("").require("Hello").require("World"))
-	def handle_hello_world_intent(self, message):
-		# In this case, respond by simply speaking a canned response.
-		# Mycroft will randomly speak one of the lines from the file
-		#    dialogs/en-us/hello.world.dialog
-		self.speak_dialog("hello.world")
-
-	@intent_handler(IntentBuilder('').require('Call').require('Person'))
-	def handle_call_intent(self, message):
-		person = message.data.get('Person')
-		self.speak_dialog('calling.person', data={'person': person})
-		self.speak('Calling {}...'.format(person))
-
-	@intent_handler(IntentBuilder('').require('RemindMeIn').require('Minutes'))
-	def handle_call_intent(self, message):
-		remind = message.data.get('RemindMeIn')
-		self.speak('Sure, I will remind u again in {}.'.format(remind))
-
-	@intent_handler(IntentBuilder("").require("Count").require("Dir"))
-	def handle_count_intent(self, message):
-		if message.data["Dir"] == "up":
-			self.count += 1
-		else:  # assume "down"
-			self.count -= 1
-		self.speak_dialog("count.is.now", data={"count": self.count})
+	# @intent_handler(IntentBuilder("").require("Hello").require("World"))
+	# def handle_hello_world_intent(self, message):
+	# 	# In this case, respond by simply speaking a canned response.
+	# 	# Mycroft will randomly speak one of the lines from the file
+	# 	#    dialogs/en-us/hello.world.dialog
+	# 	self.speak_dialog("hello.world")
+    #
+	# @intent_handler(IntentBuilder('').require('Call').require('Person'))
+	# def handle_call_intent(self, message):
+	# 	person = message.data.get('Person')
+	# 	self.speak_dialog('calling.person', data={'person': person})
+	# 	self.speak('Calling {}...'.format(person))
+    #
+	# @intent_handler(IntentBuilder('').require('RemindMeIn').require('Minutes'))
+	# def handle_call_intent(self, message):
+	# 	remind = message.data.get('RemindMeIn')
+	# 	self.speak('Sure, I will remind u again in {}.'.format(remind))
+    #
+	# @intent_handler(IntentBuilder("").require("Count").require("Dir"))
+	# def handle_count_intent(self, message):
+	# 	if message.data["Dir"] == "up":
+	# 		self.count += 1
+	# 	else:  # assume "down"
+	# 		self.count -= 1
+	# 	self.speak_dialog("count.is.now", data={"count": self.count})
 
 	# The "stop" method defines what Mycroft does when told to stop during
 	# the skill's execution. In this case, since the skill's functionality
@@ -78,9 +78,9 @@ class AssistMcSkill(MycroftSkill):
 	# def stop(self):
 	#    return False
 
-	@intent_handler(IntentBuilder('').require("WhatApiUrl"))
-	def handle_api_url(self):
-		self.speak('Your API URL is {}'.format(API_URL))
+	# @intent_handler(IntentBuilder('').require("WhatApiUrl"))
+	# def handle_api_url(self):
+	# 	self.speak('Your API URL is {}'.format(API_URL))
 
 	@intent_handler(IntentBuilder('TeaIntent').require("TeaKeyword"))
 	@adds_context('MilkContext')
