@@ -1,1 +1,1 @@
-(?P<UnhandledPhrase>\w+)
+(?P<words>\w+)
