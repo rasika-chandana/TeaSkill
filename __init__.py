@@ -33,6 +33,22 @@ class AssistMcSkill(MycroftSkill):
 		self.milk = False
 		self.speak_dialog('order.food.confirm.reply', expect_response=True)
 
+	@intent_handler(IntentBuilder('YesMilkIntent').require("YesKeyword").require('OrderFoodContext').build())
+	@adds_context('HoneyContext')
+	def handle_no_milk_intent(self, message):
+		self.speak('from where do you want to order', expect_response=True)
+
+	@intent_handler(IntentBuilder('YesMilkIntent').require("NoKeyword").require('OrderFoodContext').build())
+	@adds_context('HoneyContext')
+	def handle_no_milk_intent(self, message):
+		self.speak('Ok, Tell me when you are hungry', expect_response=True)
+
+
+
+
+
+
+
 	@intent_handler(IntentBuilder('UnhandledTeaIntent').require('MilkContext').optionally("Unhandled").build())
 	def handle_tea_unhandled_intent(self, message):
 		self.speak('Oops, I didn\'t get that', expect_response=True)
