@@ -51,10 +51,10 @@ class AssistMcSkill(MycroftSkill):
 		self.speak_dialog('order.food.preference.more', expect_response=True)
 
 	@intent_handler(IntentBuilder('CheckoutIntent').require("Checkout").require('MenuContextMore').build())
-	@removes_context('MenuContext')
-	@removes_context('MenuContextMore')
 	@adds_context('CheckoutContext')
 	def handle_checkout_order_item_intent(self, message):
+		self.remove_context('MenuContext')
+		self.remove_context('MenuContextMore')
 		self.speak_dialog('which.payment.method.to.use', expect_response=True)
 
 	@intent_handler(IntentBuilder('PaymentMethodIntent').require("PaymentMethod").require('CheckoutContext').build())
@@ -62,41 +62,6 @@ class AssistMcSkill(MycroftSkill):
 	def handle_payment_method_intent(self, message):
 		self.speak_dialog('collect.your.order.from.shop', expect_response=True)
 
-
-
-
-
-
-
-# @intent_handler(IntentBuilder('UnhandledTeaIntent').require('MilkContext').optionally("Unhandled").build())
-	# def handle_tea_unhandled_intent(self, message):
-	# 	self.speak('Oops, I didn\'t get that', expect_response=True)
-    #
-	# @intent_handler(IntentBuilder('NoMilkIntent').require("NoKeyword").require('MilkContext').build())
-	# @adds_context('HoneyContext')
-	# def handle_yes_milk_intent(self, message):
-	# 	self.milk = True
-	# 	self.speak('all right, any Honey?', expect_response=True)
-    #
-	# @intent_handler(IntentBuilder('YesMilkIntent').require("YesKeyword").require('MilkContext').build())
-	# @adds_context('HoneyContext')
-	# def handle_no_milk_intent(self, message):
-	# 	self.speak('What about Honey?', expect_response=True)
-    #
-	# @intent_handler(IntentBuilder('NoHoneyIntent').require("NoKeyword").require('HoneyContext').build())
-	# @removes_context('HoneyContext')
-	# def handle_no_honey_intent(self, message):
-	# 	self.send_order()
-    #
-	# @intent_handler(IntentBuilder('YesHoneyIntent').require("YesKeyword").require('HoneyContext').build())
-	# @removes_context('HoneyContext')
-	# def handle_yes_honey_intent(self, message):
-	# 	self.send_order()
-    #
-	# @intent_handler(IntentBuilder('UnhandledTeaIntent').require('HoneyContext').optionally("Unhandled").build())
-	# def handle_honey_unhandled_intent(self, message):
-	# 	self.speak('Oops, I didn\'t get that', expect_response=True)
-    #
 	# def send_order(self):
 	# 	try:
 	# 		data = {
