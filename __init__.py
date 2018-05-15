@@ -71,13 +71,18 @@ class AssistMcSkill(MycroftSkill):
 	# def handle_checkout_more_order_item_intent(self, message):
 	# 	self.speak_dialog('which.payment.method.to.use', expect_response=True)
 
+	@intent_handler(IntentBuilder('PaymentMethodIntent').require("PaymentMethod").require('CheckoutContext').build())
+	@removes_context('CheckoutContext')
+	def handle_checkout_order_item_intent(self, message):
+		self.speak_dialog('collect.your.order.from.shop', expect_response=True)
 
 
 
 
 
 
-	# @intent_handler(IntentBuilder('UnhandledTeaIntent').require('MilkContext').optionally("Unhandled").build())
+
+# @intent_handler(IntentBuilder('UnhandledTeaIntent').require('MilkContext').optionally("Unhandled").build())
 	# def handle_tea_unhandled_intent(self, message):
 	# 	self.speak('Oops, I didn\'t get that', expect_response=True)
     #
