@@ -27,11 +27,11 @@ class AssistMcSkill(MycroftSkill):
 	def initialize(self):
 		print '--- initialize AssistMcSkill ---'
 
-	@intent_handler(IntentBuilder('TeaIntent').require("TeaKeyword"))
-	@adds_context('MilkContext')
+	@intent_handler(IntentBuilder('OrderFoodIntent').require("AskFood"))
+	@adds_context('OrderFoodContext')
 	def handle_tea_intent(self, message):
 		self.milk = False
-		self.speak('Of course, would you like Milk with that?', expect_response=True)
+		self.speak_dialog('order.food.confirm.reply', expect_response=True)
 
 	@intent_handler(IntentBuilder('UnhandledTeaIntent').require('MilkContext').optionally("Unhandled").build())
 	def handle_tea_unhandled_intent(self, message):
