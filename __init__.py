@@ -52,14 +52,16 @@ class AssistMcSkill(MycroftSkill):
 	@removes_context('MenuCotext')
 	@adds_context('MenuContextMore')
 	def handle_order_item_intent(self, message):
+		print '>>>>>>>>>>>>>>>>>>   handle_order_item_intent'
 		self.speak_dialog('order.food.preference.more', expect_response=True)
 
 	@intent_handler(IntentBuilder('MenuMoreRepeatIntent').require("Menu").require('MenuContextMore').build())
-	@adds_context('MenuContextMore')
 	def handle_more_order_item_intent(self, message):
+		print '>>>>>>>>>>>>>>>>>>   handle_more_order_item_intent'
 		self.speak_dialog('order.food.preference.more', expect_response=True)
 
 	@intent_handler(IntentBuilder('CheckoutIntent').require("Checkout").require('MenuContextMore').build())
+	@removes_context('MenuContextMore')
 	@adds_context('CheckoutContext')
 	def handle_checkout_order_item_intent(self, message):
 		self.speak_dialog('which.payment.method.to.use', expect_response=True)
