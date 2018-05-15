@@ -12,35 +12,34 @@ import time
 import requests
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
-from mycroft.util.log import LOG
+from mycroft.util.log import getLogger
 from mycroft.skills.context import adds_context, removes_context
 
 API_URL = 'https://mcassist.herokuapp.com'
 
+UNDO_CONTEXT = "OrderFoodContext"
+
+LOGGER = getLogger(__name__)
 
 class AssistMcSkill(MycroftSkill):
 	def __init__(self):
 		super(AssistMcSkill, self).__init__(name="AssistMcSkill")
 		# Initialize working variables used within the skill.
-		self.count = 0
 
 	def initialize(self):
 		print '--- initialize AssistMcSkill ---'
 
 	@intent_handler(IntentBuilder('OrderFoodIntent').require("AskFood"))
-	@adds_context('OrderFoodContext')
-	def handle_tea_intent(self, message):
-		self.milk = False
+    @adds_context('OrderFoodContext')
+    def handle_tea_intent(self, message):
 		self.speak_dialog('order.food.confirm.reply', expect_response=True)
 
 	@intent_handler(IntentBuilder('YesOrderFoodIntent').require("YesKeyword").require('OrderFoodContext').build())
-	@adds_context('HoneyContext')
-	def handle_no_milk_intent(self, message):
+	def handle_yes_food_order_intent(self, message):
 		self.speak('from where do you want to order', expect_response=True)
 
 	@intent_handler(IntentBuilder('NoOrderFoodIntent').require("NoKeyword").require('OrderFoodContext').build())
-	@adds_context('HoneyContext')
-	def handle_no_milk_intent(self, message):
+	def handle_no_food_order_intent(self, message):
 		self.speak('Ok, Tell me when you are hungry', expect_response=True)
 
 
