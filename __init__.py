@@ -44,21 +44,21 @@ class AssistMcSkill(MycroftSkill):
 		self.speak_dialog('order.food.confirm.deny.dialog', expect_response=True)
 
 	@intent_handler(IntentBuilder('OrderFromWhereIntent').require("Restaurants").require('RestaurantContext').build())
-	@adds_context('MenuCotext')
+	@adds_context('MenuContext')
 	def handle_restaurants_intent(self, message):
 		self.speak_dialog('order.food.preference', expect_response=True)
 
-	@intent_handler(IntentBuilder('MenuMoreIntent').require("Menu").require('MenuCotext').build())
-	@removes_context('MenuCotext')
+	@intent_handler(IntentBuilder('MenuMoreIntent').require("Menu").require('MenuContext').build())
+	# @removes_context('MenuContext')
 	@adds_context('MenuContextMore')
 	def handle_order_item_intent(self, message):
 		print '>>>>>>>>>>>>>>>>>>   handle_order_item_intent'
 		self.speak_dialog('order.food.preference.more', expect_response=True)
 
-	@intent_handler(IntentBuilder('MenuMoreRepeatIntent').require("Menu").require('MenuContextMore').build())
-	def handle_more_order_item_intent(self, message):
-		print '>>>>>>>>>>>>>>>>>>   handle_more_order_item_intent'
-		self.speak_dialog('order.food.preference.more', expect_response=True)
+	# @intent_handler(IntentBuilder('MenuMoreRepeatIntent').require("Menu").require('MenuContextMore').build())
+	# def handle_more_order_item_intent(self, message):
+	# 	print '>>>>>>>>>>>>>>>>>>   handle_more_order_item_intent'
+	# 	self.speak_dialog('order.food.preference.more', expect_response=True)
 
 	@intent_handler(IntentBuilder('CheckoutIntent').require("Checkout").require('MenuContextMore').build())
 	@removes_context('MenuContextMore')
