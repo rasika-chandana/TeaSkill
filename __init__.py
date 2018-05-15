@@ -74,7 +74,7 @@ class AssistMcSkill(MycroftSkill):
 
 	@intent_handler(IntentBuilder('PaymentMethodIntent').require("PaymentMethod").require('CheckoutContext').build())
 	@removes_context('CheckoutContext')
-	def handle_checkout_order_item_intent(self, message):
+	def handle_payment_method_intent(self, message):
 		self.speak_dialog('collect.your.order.from.shop', expect_response=True)
 
 
