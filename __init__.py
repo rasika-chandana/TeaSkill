@@ -49,9 +49,24 @@ class AssistMcSkill(MycroftSkill):
 		self.speak_dialog('order.food.preference', expect_response=True)
 
 	@intent_handler(IntentBuilder('MenuIntent').require("Menu").require('MenuCotext').build())
-	@adds_context('MenuCotext')
+	@adds_context('MenuContextMore')
 	def handle_order_item_intent(self, message):
-		self.speak_dialog('order.food.preference', expect_response=True)
+		self.speak_dialog('order.food.preference.more', expect_response=True)
+
+	@intent_handler(IntentBuilder('MenuIntent').require("Menu").require('MenuContextMore').build())
+	@adds_context('MenuContextMore')
+	def handle_more_order_item_intent(self, message):
+		self.speak_dialog('order.food.preference.more', expect_response=True)
+
+	@intent_handler(IntentBuilder('MenuIntent').require("Checkout").require('MenuCotext').build())
+	@adds_context('CheckoutContext')
+	def handle_checkout_order_item_intent(self, message):
+		self.speak_dialog('which.payment.method.to.use', expect_response=True)
+
+	@intent_handler(IntentBuilder('MenuIntent').require("Checkout").require('MenuContextMore').build())
+	@adds_context('CheckoutContext')
+	def handle_checkout_more_order_item_intent(self, message):
+		self.speak_dialog('which.payment.method.to.use', expect_response=True)
 
 
 
