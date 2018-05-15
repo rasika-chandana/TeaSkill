@@ -30,17 +30,28 @@ class AssistMcSkill(MycroftSkill):
 		print '--- initialize AssistMcSkill ---'
 
 	@intent_handler(IntentBuilder('OrderFoodIntent').require("AskFood"))
-    @adds_context('OrderFoodContext')
-    def handle_tea_intent(self, message):
-		self.speak_dialog('order.food.confirm.reply', expect_response=True)
+	@adds_context('OrderFoodContext')
+	def handle_tea_intent(self, message):
+		self.speak_dialog('order.food.confirm', expect_response=True)
 
 	@intent_handler(IntentBuilder('YesOrderFoodIntent').require("YesKeyword").require('OrderFoodContext').build())
+	@adds_context('RestaurantContext')
 	def handle_yes_food_order_intent(self, message):
-		self.speak('from where do you want to order', expect_response=True)
+		self.speak_dialog('order.food.from.where', expect_response=True)
 
 	@intent_handler(IntentBuilder('NoOrderFoodIntent').require("NoKeyword").require('OrderFoodContext').build())
 	def handle_no_food_order_intent(self, message):
-		self.speak('Ok, Tell me when you are hungry', expect_response=True)
+		self.speak('order.food.confirm.deny.dialog', expect_response=True)
+
+	@intent_handler(IntentBuilder('OrderFromWhereIntent').require("Restaurants").require('RestaurantContext').build())
+	@adds_context('MenuCotext')
+	def handle_restaurants_intent(self, message):
+		self.speak('order.food.preference', expect_response=True)
+
+	@intent_handler(IntentBuilder('MenuIntent').require("Menu").require('MenuCotext').build())
+	@adds_context('MenuCotext')
+	def handle_order_item_intent(self, message):
+		self.speak('order.food.preference', expect_response=True)
 
 
 
