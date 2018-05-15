@@ -48,25 +48,26 @@ class AssistMcSkill(MycroftSkill):
 	def handle_restaurants_intent(self, message):
 		self.speak_dialog('order.food.preference', expect_response=True)
 
-	@intent_handler(IntentBuilder('MenuIntent').require("Menu").require('MenuCotext').build())
+	@intent_handler(IntentBuilder('MenuMoreIntent').require("Menu").require('MenuCotext').build())
+	@removes_context('MenuCotext')
 	@adds_context('MenuContextMore')
 	def handle_order_item_intent(self, message):
 		self.speak_dialog('order.food.preference.more', expect_response=True)
 
-	@intent_handler(IntentBuilder('MenuIntent').require("Menu").require('MenuContextMore').build())
+	@intent_handler(IntentBuilder('MenuMoreRepeatIntent').require("Menu").require('MenuContextMore').build())
 	@adds_context('MenuContextMore')
 	def handle_more_order_item_intent(self, message):
 		self.speak_dialog('order.food.preference.more', expect_response=True)
 
-	@intent_handler(IntentBuilder('MenuIntent').require("Checkout").require('MenuCotext').build())
+	@intent_handler(IntentBuilder('CheckoutIntent').require("Checkout").require('MenuContextMore').build())
 	@adds_context('CheckoutContext')
 	def handle_checkout_order_item_intent(self, message):
 		self.speak_dialog('which.payment.method.to.use', expect_response=True)
 
-	@intent_handler(IntentBuilder('MenuIntent').require("Checkout").require('MenuContextMore').build())
-	@adds_context('CheckoutContext')
-	def handle_checkout_more_order_item_intent(self, message):
-		self.speak_dialog('which.payment.method.to.use', expect_response=True)
+	# @intent_handler(IntentBuilder('MenuIntent').require("Checkout").require('CheckoutContext').build())
+	# @adds_context('CheckoutContext')
+	# def handle_checkout_more_order_item_intent(self, message):
+	# 	self.speak_dialog('which.payment.method.to.use', expect_response=True)
 
 
 
