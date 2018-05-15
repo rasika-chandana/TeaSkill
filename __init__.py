@@ -41,17 +41,17 @@ class AssistMcSkill(MycroftSkill):
 
 	@intent_handler(IntentBuilder('NoOrderFoodIntent').require("NoKeyword").require('OrderFoodContext').build())
 	def handle_no_food_order_intent(self, message):
-		self.speak('order.food.confirm.deny.dialog', expect_response=True)
+		self.speak_dialog('order.food.confirm.deny.dialog', expect_response=True)
 
 	@intent_handler(IntentBuilder('OrderFromWhereIntent').require("Restaurants").require('RestaurantContext').build())
 	@adds_context('MenuCotext')
 	def handle_restaurants_intent(self, message):
-		self.speak('order.food.preference', expect_response=True)
+		self.speak_dialog('order.food.preference', expect_response=True)
 
 	@intent_handler(IntentBuilder('MenuIntent').require("Menu").require('MenuCotext').build())
 	@adds_context('MenuCotext')
 	def handle_order_item_intent(self, message):
-		self.speak('order.food.preference', expect_response=True)
+		self.speak_dialog('order.food.preference', expect_response=True)
 
 
 
