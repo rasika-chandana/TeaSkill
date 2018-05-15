@@ -17,14 +17,11 @@ from mycroft.skills.context import adds_context, removes_context
 
 API_URL = 'https://mcassist.herokuapp.com'
 
-UNDO_CONTEXT = "OrderFoodContext"
-
 LOGGER = getLogger(__name__)
 
 class AssistMcSkill(MycroftSkill):
 	def __init__(self):
 		super(AssistMcSkill, self).__init__(name="AssistMcSkill")
-		# Initialize working variables used within the skill.
 
 	def initialize(self):
 		print '--- initialize AssistMcSkill ---'
@@ -49,16 +46,9 @@ class AssistMcSkill(MycroftSkill):
 		self.speak_dialog('order.food.preference', expect_response=True)
 
 	@intent_handler(IntentBuilder('MenuMoreIntent').require("Menu").require('MenuContext').build())
-	# @removes_context('MenuContext')
 	@adds_context('MenuContextMore')
 	def handle_order_item_intent(self, message):
-		print '>>>>>>>>>>>>>>>>>>   handle_order_item_intent'
 		self.speak_dialog('order.food.preference.more', expect_response=True)
-
-	# @intent_handler(IntentBuilder('MenuMoreRepeatIntent').require("Menu").require('MenuContextMore').build())
-	# def handle_more_order_item_intent(self, message):
-	# 	print '>>>>>>>>>>>>>>>>>>   handle_more_order_item_intent'
-	# 	self.speak_dialog('order.food.preference.more', expect_response=True)
 
 	@intent_handler(IntentBuilder('CheckoutIntent').require("Checkout").require('MenuContextMore').build())
 	@removes_context('MenuContext')
@@ -66,11 +56,6 @@ class AssistMcSkill(MycroftSkill):
 	@adds_context('CheckoutContext')
 	def handle_checkout_order_item_intent(self, message):
 		self.speak_dialog('which.payment.method.to.use', expect_response=True)
-
-	# @intent_handler(IntentBuilder('MenuIntent').require("Checkout").require('CheckoutContext').build())
-	# @adds_context('CheckoutContext')
-	# def handle_checkout_more_order_item_intent(self, message):
-	# 	self.speak_dialog('which.payment.method.to.use', expect_response=True)
 
 	@intent_handler(IntentBuilder('PaymentMethodIntent').require("PaymentMethod").require('CheckoutContext').build())
 	@removes_context('CheckoutContext')
