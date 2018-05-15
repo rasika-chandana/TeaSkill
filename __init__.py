@@ -41,7 +41,7 @@ class AssistMcSkill(MycroftSkill):
 
 	@intent_handler(IntentBuilder('NoOrderFoodIntent').require("NoKeyword").require('OrderFoodContext').build())
 	def handle_no_food_order_intent(self, message):
-		self.speak_dialog('order.food.confirm.deny.dialog', expect_response=True)
+		self.speak_dialog('order.food.confirm.deny', expect_response=True)
 
 	@intent_handler(IntentBuilder('OrderFromWhereIntent').require("Restaurants").require('RestaurantContext').build())
 	@adds_context('MenuContext')
@@ -61,7 +61,7 @@ class AssistMcSkill(MycroftSkill):
 	# 	self.speak_dialog('order.food.preference.more', expect_response=True)
 
 	@intent_handler(IntentBuilder('CheckoutIntent').require("Checkout").require('MenuContextMore').build())
-	@removes_context('MenuContextMore')
+	# @removes_context('MenuContextMore')
 	@adds_context('CheckoutContext')
 	def handle_checkout_order_item_intent(self, message):
 		self.speak_dialog('which.payment.method.to.use', expect_response=True)
