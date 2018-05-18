@@ -55,35 +55,15 @@ class AssistMcSkill(MycroftSkill):
 	def handle_checkout_order_item_intent(self, message):
 		self.remove_context('MenuContext')
 		self.remove_context('MenuContextMore')
-		self.speak_dialog('which.payment.method.to.use', expect_response=True)
+		self.speak_dialog('order.food.payment.method', expect_response=True)
 
 	@intent_handler(IntentBuilder('PaymentMethodIntent').require("PaymentMethod").require('CheckoutContext').build())
 	@removes_context('CheckoutContext')
 	def handle_payment_method_intent(self, message):
-		self.speak_dialog('collect.your.order.from.shop', expect_response=True)
+		self.speak_dialog('order.food.place.order', expect_response=True)
 
-	# def send_order(self):
-	# 	try:
-	# 		data = {
-	# 			'orders': [{
-	# 				'menu_id': 1,
-	# 				'menu_title': 'Coffee',
-	# 				'quantity': 1
-	# 			}, {
-	# 				'menu_id': 2,
-	# 				'menu_title': 'Tea',
-	# 				'quantity': 1
-	# 			},
-	# 			]
-	# 		}
-	# 		response = requests.post('{}/api/qkr/submit/order/abc'.format(API_URL), json=data)
-	# 		result_str = response.text
-	# 		result = json.loads(result_str)
-    #
-	# 		self.speak('Thank you, your order is being prepared. \
-	# 			Payment will be done on your default card. Please authenticate on your mobile app to continue.')
-	# 	except:
-	# 		self.speak('Sorry, unable to send order at this time.')
+
+##########################################
 
 
 # The "create_skill()" method is used to create an instance of the skill.
